@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CSV点検ツール｜重複・空欄・形式崩れをブラウザ内で確認（Torrant5 見本）</title>
-<meta name="description" content="CSVをどこにも送らず、ブラウザの中だけで重複行・必須列の空欄・列数不一致・読めないバイト列を点検。架空サンプルで試せる自主制作の見本。">
+<title>CSV点検ツール｜重複・空欄・形式崩れをブラウザ内で確認（Torrant5）</title>
+<meta name="description" content="CSVの重複行・必須列の空欄・列数のずれをブラウザ内で点検し、結果を保存できます。ファイルの外部送信なし。架空サンプルつき。">
 <link rel="stylesheet" href="../shared.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a class="skip" href="#main">本文へ移動</a>
 <header class="bar">
-  <a class="bar-home" href="../index.html">← 見本一覧</a>
-  <span class="bar-tag">自主制作の見本 v0.1</span>
+  <a class="bar-home" href="../index.html">← トップへ戻る</a>
+  <span class="bar-tag">自主制作 v0.1</span>
 </header>
 
 <main id="main" class="wrap">
@@ -35,7 +35,7 @@
         <option value="utf-8" selected>UTF-8（BOMあり・なし）</option>
         <option value="shift_jis">Shift_JIS（日本語CSV）</option>
       </select>
-      <span class="hint">読めないバイト列はエラーにします。エラーにならなくても文字化けして見える場合は、下の表で表示を確かめて切り替えてください。自動判定・自動修復はしません。</span>
+      <span class="hint">選んだ文字コードで読めない部分があればエラーにします。エラーにならなくても文字化けして見える場合は、下の表で表示を確かめて切り替えてください。自動判定・自動修復はしません。</span>
     </div>
     <p id="file-meta" class="meta" aria-live="polite"></p>
     <p id="status" class="status" role="status" aria-live="polite"></p>
@@ -97,7 +97,7 @@
 </main>
 
 <footer class="foot">
-  <p><a href="../index.html">見本一覧へ戻る</a></p>
+  <p><a href="../index.html">トップへ戻る</a></p>
 </footer>
 <script src="csv-core.js"></script>
 <script src="app.js"></script>
