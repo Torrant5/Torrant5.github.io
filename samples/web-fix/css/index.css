@@ -1,0 +1,229 @@
+/* 比較画面 v0.2 — システムフォントのみ・外部読込なし */
+:root {
+  --bg: #171d1a;
+  --bg-2: #222a26;
+  --ink: #f3efe6;
+  --ink-soft: #a9b2ac;
+  --line: #36403b;
+  --amber: #e0924a;
+  --leaf: #9fc3a9;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
+  --serif: "Hiragino Mincho ProN", "Yu Mincho", YuMincho, serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.7;
+}
+h1, h2, p, ol { margin: 0; padding: 0; }
+ol { list-style: none; }
+
+:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
+.compare:focus { outline: none; }
+
+.skip {
+  position: absolute; left: 12px; top: -60px; z-index: 10;
+  background: var(--amber); color: #1b1b1b; padding: 10px 16px; border-radius: 8px;
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+/* 見出し */
+.head {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 48px 24px 8px;
+}
+.kicker {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: .08em;
+}
+.kicker span { color: var(--ink-soft); font-weight: 500; margin-left: .8em; letter-spacing: .02em; }
+.title {
+  margin-top: 14px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(32px, 8.4vw, 56px);
+  line-height: 1.3;
+  letter-spacing: .02em;
+}
+.lede { margin-top: 14px; color: var(--ink-soft); font-size: 15px; }
+
+/* 比較ステージ */
+.compare {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 32px 24px 8px;
+}
+.switch {
+  display: none;
+  margin: 0 auto 18px;
+  width: max-content;
+  background: var(--bg-2);
+  border-radius: 999px;
+  padding: 4px;
+}
+.switch-btn {
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.switch-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+.stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+}
+.phone { margin: 0; display: grid; gap: 12px; justify-items: center; }
+.cap { font-size: 14px; font-weight: 700; color: var(--ink-soft); letter-spacing: .1em; }
+.cap-after { color: var(--leaf); }
+.screen {
+  width: 375px;
+  height: 720px;
+  border-radius: 34px;
+  border: 10px solid #0b0e0c;
+  box-shadow: 0 0 0 1px var(--line), 0 30px 60px rgba(0, 0, 0, .45);
+  overflow: hidden;
+  background: #fff;
+}
+.screen iframe { display: block; width: 100%; height: 100%; border: 0; }
+.phone-before .screen { opacity: .82; }
+.phone-after .screen { box-shadow: 0 0 0 2px var(--leaf), 0 30px 60px rgba(0, 0, 0, .45); }
+
+.arrow {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 2px;
+  background: var(--ink-soft);
+  position: relative;
+}
+.arrow::after {
+  content: "";
+  position: absolute; right: 0; top: -5px;
+  width: 10px; height: 10px;
+  border-top: 2px solid var(--ink-soft);
+  border-right: 2px solid var(--ink-soft);
+  transform: rotate(45deg);
+}
+
+/* 狭い画面：切り替え表示 */
+@media (max-width: 880px) {
+  .js .switch { display: flex; }
+  .arrow { display: none; }
+  .stage { flex-direction: column; gap: 32px; }
+  .js .stage[data-view="after"] .phone-before,
+  .js .stage[data-view="before"] .phone-after { display: none; }
+  .js .phone .cap { display: none; }
+  .screen { width: min(375px, 100%); height: min(720px, 76vh); }
+  .phone { width: 100%; }
+}
+
+/* 要点 */
+.points {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 56px 24px 0;
+}
+.points-title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: .06em;
+}
+.point-list {
+  margin-top: 20px;
+  display: grid;
+  gap: 0;
+  counter-reset: p;
+}
+.point {
+  counter-increment: p;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  grid-template-areas: "pic main" "pic sub";
+  column-gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+}
+.pic { grid-area: pic; width: 40px; height: 40px; fill: var(--leaf); stroke: var(--leaf); }
+.point-main { grid-area: main; font-size: 19px; font-weight: 700; line-height: 1.45; }
+.point-main::before {
+  content: counter(p);
+  color: var(--amber);
+  font-size: 13px;
+  margin-right: 10px;
+  vertical-align: 2px;
+}
+.point-sub { grid-area: sub; margin-top: 4px; font-size: 13px; color: var(--ink-soft); }
+
+@media (min-width: 881px) {
+  .point-list { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .point { grid-template-columns: 1fr; grid-template-areas: "pic" "main" "sub"; row-gap: 12px; }
+}
+
+/* 主動作 */
+.action {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 48px 24px 24px;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  padding: 0 40px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  transition: transform .12s var(--ease), background .2s;
+}
+.cta:hover { background: #fff; }
+.cta:active { transform: scale(.97); }
+.sub-link { font-size: 14px; color: var(--ink-soft); }
+.sub-link:hover { color: var(--ink); }
+
+.foot {
+  max-width: 1040px;
+  margin: 24px auto 0;
+  padding: 24px 24px 40px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+/* 入場の動き */
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.js .head > * { animation: rise .55s var(--ease) both; }
+.js .head .title { animation-delay: .06s; }
+.js .head .lede { animation-delay: .12s; }
+.js .stage { animation: rise .6s .2s var(--ease) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

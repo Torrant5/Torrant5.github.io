@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Torrant5 の見本｜実際に動く自主制作サンプル</title>
+<meta name="description" content="ブラウザ内で動くCSV点検ツールと、スマホ向け店舗ページの改善見本。すべて架空データの自主制作で、その場で試せます。">
+<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="home.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<main id="main" class="wrap">
+  <header class="hero">
+    <p class="kicker">Torrant5 ／ 自主制作の見本 v0.1</p>
+    <h1>説明を読む前に、<br class="sp">その場で試せる見本。</h1>
+    <p class="lede">小さな事務作業の自動化と、スマホで読みやすい店舗ページ。実際に動くものを置いています。掲載しているサンプルは架空データです。CSV点検ツールに読み込んだファイルは、ブラウザの中だけで処理して送信しません。</p>
+  </header>
+
+  <ul class="works">
+    <li class="work">
+      <a class="shot" href="csv-check/index.html" aria-hidden="true" tabindex="-1">
+        <svg viewBox="0 0 320 200" role="img" focusable="false" font-family="system-ui, sans-serif">
+          <rect width="320" height="200" rx="10" fill="#f6f7f9"/>
+          <rect x="14" y="12" width="292" height="24" rx="6" fill="#fff" stroke="#d8dde6"/>
+          <text x="24" y="28" font-size="11" fill="#1c2330" font-weight="700">点検結果</text>
+          <text x="90" y="28" font-size="10" fill="#4b5563">データ 8 行 ／ 指摘 6 件 ／ 重複 2 組</text>
+          <rect x="14" y="44" width="292" height="20" rx="4" fill="#e8f0fc"/>
+          <text x="22" y="58" font-size="10" fill="#1c2330" font-weight="700">行</text>
+          <text x="52" y="58" font-size="10" fill="#1c2330" font-weight="700">種別</text>
+          <text x="170" y="58" font-size="10" fill="#1c2330" font-weight="700">内容</text>
+          <rect x="14" y="66" width="292" height="20" fill="#fff" stroke="#e6e9ef"/>
+          <text x="22" y="80" font-size="10" fill="#4b5563">3</text>
+          <text x="52" y="80" font-size="10" fill="#4b5563">ID重複（内容が異なる）</text>
+          <text x="170" y="80" font-size="10" fill="#4b5563">注文番号 1002 が 2 行</text>
+          <rect x="14" y="86" width="292" height="20" fill="#fff4d6" stroke="#e6e9ef"/>
+          <text x="22" y="100" font-size="10" fill="#8a5a00">4</text>
+          <text x="52" y="100" font-size="10" fill="#8a5a00">数式として解釈され得る</text>
+          <text x="170" y="100" font-size="10" fill="#8a5a00">先頭が「=」 保存時に保護</text>
+          <rect x="14" y="106" width="292" height="20" fill="#fff" stroke="#e6e9ef"/>
+          <text x="22" y="120" font-size="10" fill="#4b5563">5</text>
+          <text x="52" y="120" font-size="10" fill="#4b5563">完全一致の重複</text>
+          <text x="170" y="120" font-size="10" fill="#4b5563">2 行目と全列が同じ</text>
+          <rect x="14" y="126" width="292" height="20" fill="#fff4d6" stroke="#e6e9ef"/>
+          <text x="22" y="140" font-size="10" fill="#8a5a00">9</text>
+          <text x="52" y="140" font-size="10" fill="#8a5a00">必須列が空白のみ</text>
+          <text x="170" y="140" font-size="10" fill="#8a5a00">顧客名（空欄とは区別）</text>
+          <rect x="160" y="160" width="146" height="26" rx="6" fill="#1f5fbf"/>
+          <text x="233" y="177" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">重複除去CSVを保存</text>
+        </svg>
+      </a>
+      <div class="desc">
+        <h2>CSV点検ツール</h2>
+        <p>重複行・必須列の空欄・列数のずれ・読めないバイト列を、ブラウザの中だけで点検。行番号つきで理由が出て、点検一覧と重複除去CSVを保存できます。</p>
+        <ul class="facts">
+          <li>送信なし・登録なし</li>
+          <li>UTF-8 / Shift_JIS</li>
+          <li>架空サンプルを1クリックで</li>
+        </ul>
+        <p class="try">試し方：「架空サンプルを読み込む」→ 列を選ぶ → 「点検する」</p>
+        <a class="btn-main" href="csv-check/index.html">ツールを開く</a>
+      </div>
+    </li>
+
+    <li class="work">
+      <a class="shot" href="web-fix/index.html" aria-hidden="true" tabindex="-1">
+        <svg viewBox="0 0 320 200" role="img" focusable="false" font-family="system-ui, sans-serif">
+          <rect width="320" height="200" rx="10" fill="#f6f7f9"/>
+          <rect x="22" y="12" width="124" height="176" rx="12" fill="#fff" stroke="#d8dde6"/>
+          <text x="32" y="30" font-size="9" fill="#6b7280" font-weight="700">修正前</text>
+          <text x="32" y="46" font-size="7.5" fill="#9ca3af">当院は地域の皆様の健康を</text>
+          <text x="32" y="57" font-size="7.5" fill="#9ca3af">第一に考え、丁寧な施術を</text>
+          <text x="32" y="68" font-size="7.5" fill="#9ca3af">心がけております。初回の</text>
+          <text x="32" y="79" font-size="7.5" fill="#9ca3af">方は問診票の記入があり…</text>
+          <text x="32" y="96" font-size="7.5" fill="#9ca3af">料金は全身整体60分6,000円、</text>
+          <text x="32" y="107" font-size="7.5" fill="#9ca3af">営業時間は平日が9時から</text>
+          <text x="32" y="118" font-size="7.5" fill="#9ca3af">19時、土曜は9時から…</text>
+          <path d="M150 100 l12 -8 v5 h14 v6 h-14 v5z" fill="#1f5fbf"/>
+          <rect x="178" y="12" width="124" height="176" rx="12" fill="#fff" stroke="#1f5fbf"/>
+          <text x="188" y="30" font-size="9" fill="#1f5fbf" font-weight="700">修正後</text>
+          <text x="188" y="48" font-size="12" fill="#1c2330" font-weight="700">全身整体 60分 6,000円</text>
+          <rect x="188" y="56" width="104" height="14" fill="#e8f0fc"/>
+          <text x="192" y="66" font-size="7.5" fill="#1c2330" font-weight="700">曜日　　午前　　　午後</text>
+          <text x="192" y="80" font-size="7.5" fill="#4b5563">月〜金　9–12　　15–19</text>
+          <text x="192" y="92" font-size="7.5" fill="#4b5563">土曜　　9–12　　休み</text>
+          <text x="192" y="104" font-size="7.5" fill="#4b5563">日・祝　休み</text>
+          <rect x="188" y="160" width="104" height="18" rx="9" fill="#1f5fbf"/>
+          <text x="240" y="172" font-size="8.5" fill="#fff" text-anchor="middle" font-weight="700">予約する</text>
+        </svg>
+      </a>
+      <div class="desc">
+        <h2>店舗Web改善見本</h2>
+        <p>架空の整体院ページを、同じ内容のままスマホで迷わない形に組み直した比較見本。料金と時間を数字で先に、営業時間は曜日の表に、予約ボタンは常に手元に。</p>
+        <ul class="facts">
+          <li>修正前 / 修正後を並べて比較</li>
+          <li>スマホで読みやすい表示</li>
+          <li>店舗・住所・電話は架空</li>
+        </ul>
+        <p class="try">試し方：「修正前」「修正後」を切り替え → 改善後のページで「予約する」を押す（見本案内が開くだけ）</p>
+        <a class="btn-main" href="web-fix/index.html">見本を開く</a>
+      </div>
+    </li>
+  </ul>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">この見本について</h2>
+    <ul class="plain">
+      <li>すべて Torrant5 の自主制作です。実在の顧客・店舗・実績ではありません。</li>
+      <li>登録せずに、ブラウザからそのまま試せます。</li>
+      <li>文章でのやり取りで進める小規模な事務自動化・Web表示改善の、進め方と品質の目安としてご覧ください。</li>
+    </ul>
+  </section>
+</main>
+<footer class="foot">
+  <p>Torrant5 ／ 自主制作の見本 v0.1</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web改善見本｜スマホの店舗ページを、読まずにわかる形へ</title>
+<link rel="stylesheet" href="css/index.css">
+<style>.samples-nav{max-width:960px;margin:0 auto;padding:12px 20px 0;font-size:.92rem}.samples-nav a{color:#cfe0ff;font-weight:600;text-decoration:none}.samples-nav a:hover,.samples-nav a:focus-visible{text-decoration:underline}</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#compare">比較へ移動</a>
+<nav class="samples-nav" aria-label="見本一覧"><a href="../index.html">← 見本一覧へ戻る</a></nav>
+
+<header class="head">
+  <p class="kicker">Web改善見本 v0.2 <span>架空の整体院ページ</span></p>
+  <h1 class="title">読まなくても、<br>予約まで迷わない。</h1>
+  <p class="lede">同じ内容のスマホページを、HTML/CSSで組み直しました。</p>
+</header>
+
+<main>
+  <section id="compare" class="compare" tabindex="-1" aria-label="修正前と修正後の比較">
+    <div class="switch" role="group" aria-label="表示する画面">
+      <button type="button" class="switch-btn" data-show="before" aria-pressed="false">修正前</button>
+      <button type="button" class="switch-btn" data-show="after" aria-pressed="true">修正後</button>
+    </div>
+
+    <div class="stage" data-view="after">
+      <figure class="phone phone-before">
+        <figcaption class="cap">修正前</figcaption>
+        <div class="screen"><iframe src="before.html" title="修正前のページ" loading="lazy"></iframe></div>
+      </figure>
+      <span class="arrow" aria-hidden="true"></span>
+      <figure class="phone phone-after">
+        <figcaption class="cap cap-after">修正後</figcaption>
+        <div class="screen"><iframe src="after.html" title="修正後のページ"></iframe></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="points" aria-labelledby="points-title">
+    <h2 id="points-title" class="points-title">良くなる3点</h2>
+    <ol class="point-list">
+      <li class="point">
+        <svg class="pic" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect x="6" y="12" width="36" height="6" rx="3"/><rect x="6" y="24" width="24" height="6" rx="3"/><rect x="6" y="36" width="24" height="6" rx="3"/></svg>
+        <p class="point-main">料金と時間を、数字で先に</p>
+        <p class="point-sub">文章の中に埋もれていた金額と分数を、大きな数字と長さで</p>
+      </li>
+      <li class="point">
+        <svg class="pic" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect x="6" y="8" width="36" height="34" rx="6" fill="none" stroke-width="4"/><rect x="14" y="20" width="20" height="12" rx="3"/></svg>
+        <p class="point-main">曜日ごとの営業が、ひと目で</p>
+        <p class="point-sub">曜日・午前・午後の表で、営業時間と休みを表示</p>
+      </li>
+      <li class="point">
+        <svg class="pic" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect x="14" y="4" width="20" height="40" rx="5" fill="none" stroke-width="4"/><rect x="17" y="32" width="14" height="6" rx="3"/></svg>
+        <p class="point-main">予約ボタンは1つ、常に手元に</p>
+        <p class="point-sub">どこまで読んでも、画面下からすぐ押せる</p>
+      </li>
+    </ol>
+  </section>
+
+  <div class="action">
+    <a class="cta" href="after.html">改善後のページを開く</a>
+    <a class="sub-link" href="詳しい仕様.html">変更点とWordPressでの反映方法</a>
+  </div>
+</main>
+
+<footer class="foot">
+  <p>店名・住所・電話番号はすべて架空です。改善の考え方を示す自主制作の見本で、実在の店舗とは関係ありません。</p>
+</footer>
+
+<script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSV点検ツール｜重複・空欄・形式崩れをブラウザ内で確認（Torrant5 見本）</title>
+<meta name="description" content="CSVをどこにも送らず、ブラウザの中だけで重複行・必須列の空欄・列数不一致・読めないバイト列を点検。架空サンプルで試せる自主制作の見本。">
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="bar">
+  <a class="bar-home" href="../index.html">← 見本一覧</a>
+  <span class="bar-tag">自主制作の見本 v0.1</span>
+</header>
+
+<main id="main" class="wrap">
+  <h1>CSV点検ツール</h1>
+  <p class="lede">表計算に取り込む前のCSVを、<strong>重複・空欄・形式崩れ</strong>の観点で点検します。ファイルはこのページの中だけで処理し、<strong>どこにも送信しません</strong>。登録も不要です。</p>
+
+  <section class="card" aria-labelledby="step1">
+    <h2 id="step1"><span class="no">1</span>ファイルを読み込む</h2>
+    <div class="row">
+      <label class="file-label">
+        <span class="btn-ghost">CSVファイルを選ぶ</span>
+        <input id="file" type="file" accept=".csv,text/csv,text/plain">
+      </label>
+      <span class="or">または</span>
+      <button id="load-sample" type="button" class="btn-ghost">架空サンプルを読み込む</button>
+    </div>
+    <div class="row">
+      <label for="encoding">文字コード</label>
+      <select id="encoding">
+        <option value="utf-8" selected>UTF-8（BOMあり・なし）</option>
+        <option value="shift_jis">Shift_JIS（日本語CSV）</option>
+      </select>
+      <span class="hint">読めないバイト列はエラーにします。エラーにならなくても文字化けして見える場合は、下の表で表示を確かめて切り替えてください。自動判定・自動修復はしません。</span>
+    </div>
+    <p id="file-meta" class="meta" aria-live="polite"></p>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <p id="error" class="error" role="alert" tabindex="-1" hidden></p>
+  </section>
+
+  <section id="setup" class="card" aria-labelledby="step2" hidden>
+    <h2 id="step2"><span class="no">2</span>点検する列を選ぶ</h2>
+    <fieldset>
+      <legend>空欄があってはいけない列（複数可）</legend>
+      <div id="required-cols" class="chk-grid"></div>
+    </fieldset>
+    <div class="row">
+      <label for="id-col">ID列（重複を別扱いにする列）</label>
+      <select id="id-col"></select>
+    </div>
+    <p class="hint">全列が完全に一致する行は常に点検します。IDだけ同じで内容が異なる行は「要確認」として分け、削除しません。</p>
+    <button id="run" type="button" class="btn-main" disabled>点検する</button>
+  </section>
+
+  <section id="result" class="card" aria-labelledby="result-title" hidden>
+    <h2 id="result-title" tabindex="-1"><span class="no">3</span>結果</h2>
+    <dl id="summary" class="summary"></dl>
+
+    <h3>指摘一覧</h3>
+    <div class="table-wrap">
+      <table class="tbl">
+        <thead><tr><th scope="col">行</th><th scope="col">種別</th><th scope="col">列</th><th scope="col">内容</th></tr></thead>
+        <tbody id="findings-body"></tbody>
+      </table>
+    </div>
+    <div id="findings-pager" class="pager"></div>
+
+    <h3>データの確認（指摘のある行に色）</h3>
+    <div class="table-wrap"><table id="preview" class="tbl tbl-data"></table></div>
+    <div id="preview-pager" class="pager"></div>
+
+    <h3>保存</h3>
+    <div class="row">
+      <button id="dl-findings" type="button" class="btn-main" disabled>点検一覧CSVを保存</button>
+      <button id="dedup" type="button" class="btn-ghost" disabled>重複除去CSVを保存</button>
+    </div>
+    <p id="dedup-note" class="hint"></p>
+    <p id="save-note" class="status" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="card card-note" aria-labelledby="limits">
+    <h2 id="limits">できること・できないこと</h2>
+    <ul class="plain">
+      <li>対応：カンマ区切り、引用符（"）で囲んだセル、セル内の改行、CRLF/LF の改行、UTF-8（BOMあり・なし）、Shift_JIS。</li>
+      <li>拒否して理由を表示：列名の空欄・重複、ヘッダーと列数が違う行、途中の空行、閉じていない引用符、選んだ文字コードで読めないバイト列。自動で補完・修復はしません。</li>
+      <li>文字コードの注意：UTF-8 と Shift_JIS の両方で「読める」バイト列もあるため、選び間違いを常に検出できるわけではありません。読み込み後の表で日本語が正しく見えるかを確認してください。</li>
+      <li>勝手にしないこと：数値への変換、先頭ゼロの削除、前後の空白を無視した同一視、ID重複行の削除。</li>
+      <li>保存するCSVは UTF-8（BOM付き）・CRLF。表計算で数式として解釈され得るセル（先頭が = + - @ や改行・タブ、全角の ＝ ＋ － ＠）には先頭に「'」を付け、値を変えた個数を表示します。表計算ソフト側の設定や再保存後まで含めた完全な防止は保証できません。先頭ゼロ（例：00450）は文字列のまま保存しますが、表計算ソフトが開く時に数値へ自動変換することがあります。</li>
+      <li>上限：20MB・200,000行・500列・セル数200万。超えた時点で読み込みを止めて理由を表示します。指摘は先頭100,000件まで一覧に載せ、残りは件数だけ数えます。ブラウザ内処理のための安全上の制限で、それ以上は対応しません。タブ区切りや他の区切り文字は未対応です。</li>
+    </ul>
+    <p class="hint">このツールは Torrant5 の自主制作です。掲載サンプルは架空データです。読み込んだデータをサーバーへ送信・保存することはありません。</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <p><a href="../index.html">見本一覧へ戻る</a></p>
+</footer>
+<script src="csv-core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>詳しい仕様｜Web改善見本</title>
+<link rel="stylesheet" href="css/spec.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+
+<header class="head">
+  <p class="kicker">Web改善見本</p>
+  <h1 class="title">詳しい仕様</h1>
+  <p class="lede">必要なところだけ開いてください。</p>
+</header>
+
+<main id="main" class="main">
+  <details class="panel" open>
+    <summary>変更点</summary>
+    <div class="body">
+      <table class="diff">
+        <thead><tr><th scope="col">箇所</th><th scope="col">修正前</th><th scope="col">修正後</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">最初の画面</th><td>「ようこそ！！…★」の挨拶</td><td>一言と、料金・時間・駅からの距離の数字</td></tr>
+          <tr><th scope="row">料金</th><td>カードの文中に金額と分数</td><td>一覧にして金額を大きく。所要時間は棒の長さでも表示</td></tr>
+          <tr><th scope="row">営業時間</th><td>「9:00」「15時」「AM9時」が混在する一文</td><td>曜日・午前・午後の表に、営業時間と休みを表示</td></tr>
+          <tr><th scope="row">場所</th><td>住所と駅からの距離の2行</td><td>駅からの経路の図と住所</td></tr>
+          <tr><th scope="row">予約</th><td>先頭と末尾にボタン、電話番号は末尾のみ</td><td>画面下に固定した「予約する」1つ（見本では案内のみ）</td></tr>
+          <tr><th scope="row">表現</th><td>「楽にします」などの効果をうたう文</td><td>効果の断定を避け、施術の範囲だけを記載</td></tr>
+          <tr><th scope="row">操作しやすさ</th><td>特になし</td><td>スキップリンク、フォーカス表示、Escで閉じる、動きを減らす設定への対応</td></tr>
+        </tbody>
+      </table>
+      <p class="note">店名・料金・所要時間・営業時間・住所は修正前のページから変えていません。修正前のページに無い情報（口コミ、実績、資格、駐車場など）は足していません。</p>
+    </div>
+  </details>
+
+  <details class="panel">
+    <summary>WordPressでの反映方法<span class="badge">実機未検証</span></summary>
+    <div class="body">
+      <p class="warn">この見本は単体のHTML/CSSとスクリプトです。WordPressの実環境では試していません。テーマ、ブロックエディタかどうか、プラグイン、ユーザー権限によって方法が変わるため、実際のサイトを見てから決めます。</p>
+      <ol class="steps">
+        <li><b>見た目だけを直す</b><span>追加CSSに書く（クラシックテーマは「外観 → カスタマイズ → 追加CSS」、ブロックテーマはサイトエディターのスタイル内）。HTMLの構造は変えない範囲。</span></li>
+        <li><b>ページの中身を組み替える</b><span>固定ページの本文を、ブロックの組み直しやカスタムHTMLブロックで置き換える。権限によってはスクリプトが除去されるため、動きの部分は別の方法で読み込む。</span></li>
+        <li><b>テーマごと手を入れる</b><span>子テーマを作り、CSSとスクリプトを読み込む。親テーマを更新しても変更が消えない。</span></li>
+      </ol>
+      <p class="note">本番の前に、複製環境やステージングで確認するのが望ましいです。</p>
+    </div>
+  </details>
+
+  <details class="panel">
+    <summary>元に戻す考え方</summary>
+    <div class="body">
+      <ul class="dots">
+        <li>変更の前に控えを取る（ページのリビジョン、追加CSSの写し、テーマファイルの複製。可能ならサイト全体のバックアップ）</li>
+        <li>変更は小さく分け、1つずつ反映して確認する</li>
+        <li>戻すときは、リビジョンから復元／追加CSSを元の写しに戻す／子テーマを外して親テーマに戻す</li>
+      </ul>
+      <p class="note">具体的な手順は、実際のサイトのバックアップ方法とサーバー構成を確認してから決めます。</p>
+    </div>
+  </details>
+
+  <details class="panel">
+    <summary>この見本の限界</summary>
+    <div class="body">
+      <ul class="dots">
+        <li>店舗・住所・電話番号はすべて架空です</li>
+        <li>「初めてでも大丈夫か」に答える情報（当日の流れなど）は、修正前のページに無いため足していません。実際には店舗から事実を受け取って追加します</li>
+        <li>月〜金・土曜・日曜祝日の営業時間を表で表示します。祝日のある週は時間変更の可能性があります</li>
+        <li>「予約する」は案内を出すだけで、送信や発信はしません</li>
+        <li>確認したブラウザ以外での表示は未確認です</li>
+        <li>料金や作業範囲の約束ではありません</li>
+      </ul>
+    </div>
+  </details>
+
+  <div class="action">
+    <a class="cta" href="index.html">比較画面へ戻る</a>
+  </div>
+</main>
+</body>
+</html>
