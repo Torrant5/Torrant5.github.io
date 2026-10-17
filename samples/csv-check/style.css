@@ -19,6 +19,8 @@ legend { padding: 0 6px; color: var(--ink-2); font-size: .92rem; }
 .tbl th, .tbl td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; white-space: pre-wrap; word-break: break-all; }
 .tbl th { background: var(--bg); font-weight: 600; position: sticky; top: 0; }
 .tbl tr:last-child td { border-bottom: none; }
+.tbl:not(.tbl-data) td:first-child, .tbl:not(.tbl-data) th:first-child { white-space: nowrap; }
+.tbl:not(.tbl-data) td:nth-child(3), .tbl:not(.tbl-data) th:nth-child(3) { word-break: keep-all; overflow-wrap: anywhere; min-width: 6em; }
 .tbl-data td, .tbl-data th { white-space: pre; max-width: 24em; overflow: hidden; text-overflow: ellipsis; }
 .tbl-data tr.flag td { background: var(--warn-soft); }
 .pager { display: flex; align-items: center; gap: 12px; margin: 8px 0 0; font-size: .92rem; color: var(--ink-2); }
@@ -30,4 +32,15 @@ legend { padding: 0 6px; color: var(--ink-2); font-size: .92rem; }
   .btn-main, .btn-ghost { width: 100%; text-align: center; }
   .file-label { width: 100%; }
   .row label { width: 100%; }
+  /* 指摘一覧：1件を縦に並べ、初期幅で行・種別・列・内容が全部読めるようにする（横スクロール廃止。データ確認表 .tbl-data は対象外） */
+  .tbl:not(.tbl-data) thead { display: none; }
+  .tbl:not(.tbl-data) tr { display: block; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  .tbl:not(.tbl-data) tr:last-child { border-bottom: none; }
+  .tbl:not(.tbl-data) td { display: block; padding: 2px 0; border-bottom: none; min-width: 0; white-space: pre-wrap; word-break: break-all; }
+  .tbl:not(.tbl-data) td::before { display: inline-block; min-width: 3em; margin-right: 6px; color: var(--ink-2); font-size: .85rem; }
+  .tbl:not(.tbl-data) td:nth-child(1)::before { content: "行"; }
+  .tbl:not(.tbl-data) td:nth-child(2)::before { content: "種別"; }
+  .tbl:not(.tbl-data) td:nth-child(3)::before { content: "列"; }
+  .tbl:not(.tbl-data) td:nth-child(4)::before { content: "内容"; }
+  .tbl:not(.tbl-data) td[colspan]::before { content: none; }
 }

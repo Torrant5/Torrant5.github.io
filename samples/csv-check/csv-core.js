@@ -202,12 +202,19 @@
       }
     });
 
-    // 3) ID重複（内容が異なる行）。完全一致の重複は上で数えたので除く
-    var idGroups = 0;
+    // 3) ID重複（内容が異なる行）。完全一致の重複は上で数えたので除く。
+    //    空文字のIDは「欠落」であって重複ではないので、ID重複から除外し「ID列が空欄」として別種別で出す
+    //    （空白だけのIDは空欄と区別し、同じ文字列同士なら重複として扱う。trimや書き換えはしない）。
+    var idGroups = 0, emptyIds = 0;
     if (idCol !== null) {
       var idMap = Object.create(null);
       for (var r3 = 0; r3 < rows.length; r3++) {
         var id = rows[r3][idCol];
+        if (id === '') {
+          emptyIds++;
+          add({ row: r3, line: lineOf[r3], kind: 'ID列が空欄', col: header[idCol], detail: '重複判定の対象外。IDを入力してから再点検' });
+          continue;
+        }
         if (idMap[id] === undefined) idMap[id] = [r3]; else idMap[id].push(r3);
       }
       Object.keys(idMap).forEach(function (id) {
@@ -218,8 +225,17 @@
         idx.forEach(function (ri) { distinct[JSON.stringify(rows[ri])] = true; });
         if (Object.keys(distinct).length < 2) return;
         idGroups++;
+        // 相手行（物理行番号）は先頭5行だけ列挙し、残りは件数で示す。
+        // グループ全件の配列を行ごとに作らず、先頭6候補から自分を除いた最大5件を取る（同一ID多数行でも行あたり定数時間）。
+        var head = idx.slice(0, 6);
         idx.forEach(function (ri) {
-          add({ row: ri, line: lineOf[ri], kind: 'ID重複（内容が異なる）', col: header[idCol], detail: 'ID「' + id + '」が' + idx.length + '行。削除せず確認が必要' });
+          var others = [];
+          for (var h = 0; h < head.length && others.length < 5; h++) {
+            if (head[h] !== ri) others.push(lineOf[head[h]] + '行目');
+          }
+          var rest = idx.length - 1 - others.length;
+          var shown = others.join('・') + (rest > 0 ? '・他' + rest + '行' : '');
+          add({ row: ri, line: lineOf[ri], kind: 'ID重複（内容が異なる）', col: header[idCol], detail: 'ID「' + id + '」が' + idx.length + '行（相手：' + shown + '）。削除せず確認が必要' });
         });
       });
     }
@@ -242,6 +258,7 @@
       dupRemovable: dupRemovable,
       removableRows: removable,
       idGroups: idGroups,
+      emptyIds: emptyIds,
       formulaCells: formulaCells,
       omitted: omitted,
       counts: { rows: rows.length, findings: findings.length + omitted }

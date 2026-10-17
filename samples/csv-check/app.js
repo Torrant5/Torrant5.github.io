@@ -191,7 +191,7 @@
       ['データ行', rp.counts.rows.toLocaleString() + ' 行'],
       ['完全一致の重複', rp.dupGroups + ' 組（除去できる行 ' + rp.dupRemovable + '）'],
       ['必須列の点検', req.length ? req.map(function (i) { return state.data.header[i]; }).join('、') : '指定なし'],
-      ['ID重複（内容が異なる）', idCol === null ? '指定なし' : rp.idGroups + ' 組'],
+      ['ID重複（内容が異なる）', idCol === null ? '指定なし' : rp.idGroups + ' 組' + (rp.emptyIds ? '（ID列が空欄の行 ' + rp.emptyIds + ' は対象外）' : '')],
       ['数式として解釈され得るセル', rp.formulaCells + ' 個'],
       ['指摘の合計', rp.counts.findings.toLocaleString() + ' 件' + (rp.omitted ? '（一覧には先頭 ' + rp.findings.length.toLocaleString() + ' 件だけ表示）' : '')]
     ];
